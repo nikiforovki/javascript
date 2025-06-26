@@ -1,21 +1,18 @@
-// // Задание 1
-//
-// const number = 2;
-//     if(number > 0) {
-//     console.log("Положительное число")
-//     }
-//
-//     if(number === 0) {
-//     console.log("Ноль")
-//     }
-//
-//     if(number < 0) {
-//     console.log("Отрицательное число")
-//     }
+// Задание 1 (Исправлено)
 
-// // Задание 2
-// const height = prompt('Введите ваш рост (в см)');
-// const weight = prompt('Введите ваш вес (в кг)');
+const number = 2;
+if (number > 0) {
+    console.log("Положительное число");
+} else if (number === 0) {
+    console.log("Ноль");
+} else {
+    console.log("Отрицательное число");
+}
+
+// // Задание 2 (Исправлено)
+
+// const height = Number(prompt('Введите ваш рост (в см)'));
+// const weight = Number(prompt('Введите ваш вес (в кг)'))
 //
 // if (height === null || weight === null || isNaN(height) || isNaN(weight)) {
 //     alert("Нужно ввести числа!");
@@ -25,8 +22,8 @@
 //
 //     alert(`Ваш ИМТ: ${bmi}`);
 // }
-//  }
-//
+
+
 // // Задание 3
 // const monthNumber = Number(prompt('Введите номер месяца (1-12):'));
 // let monthName;
