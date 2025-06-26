@@ -1,34 +1,34 @@
  // Задание 1
 
-for (let i = 1; i <= 10; i++) {
-    console.log(i)
- }
+// for (let i = 1; i <= 10; i++) {
+//     console.log(i)
+//  }
 
 
 
  // Задание 2
 
-let i = 1;
-let sum = 0;
-    while (i <= 100) {
-        sum += i
-        i++
-    }
-console.log(sum)
-
-
- // Задание 3
-
-let n = 100;
- outerLoop:
- for (let i = 2; i <= n; i++ ) {
-    for(j = 2; j < i; j++) {
-     if(i % j === 0) {
-         continue outerLoop;
-     }
-    }
-    console.log(i)
- }
+// let i = 1;
+// let sum = 0;
+//     while (i <= 100) {
+//         sum += i
+//         i++
+//     }
+// console.log(sum)
+//
+//
+//  // Задание 3
+//
+// let n = 100;
+//  outerLoop:
+//  for (let i = 2; i <= n; i++ ) {
+//     for(j = 2; j < i; j++) {
+//      if(i % j === 0) {
+//          continue outerLoop;
+//      }
+//     }
+//     console.log(i)
+//  }
 
  
 
@@ -64,3 +64,5 @@ let n = 100;
  //     }
  //     console.log(i) // Если дохожу суда значит делитель не найден
  //  }
+
+
