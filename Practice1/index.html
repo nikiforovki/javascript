@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz - Тест на знание</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+<div class="quiz-container-start">
+    <h1 class="quiz-title">Тест на общие знания</h1>
+    <div class="start-btn-container">
+        <button id="start-btn" class="btn-start">Начать тест</button>
+    </div>
+</div>
+
+<div class="quiz-container hidden">
+    <div id="quiz-area"></div>
+    <div id="result-area" class="hidden">
+        <h2>Результат:</h2>
+        <p id="score-text"></p>
+        <button id="restart-btn" class="btn">Перезапустить тест</button>
+    </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
