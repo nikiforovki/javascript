@@ -27,7 +27,7 @@ console.log(safeDivide(2, 0));
 function transformJSON(jsonString) {
     try {
         return JSON.parse(jsonString);
-    } catch (error) {
+    } catch (error) {25-DZ.js
         console.error('Ошибка при парсинге JSON:', error.message);
     }
 }
