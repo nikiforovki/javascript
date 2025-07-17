@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>RPG - игра</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+<section class="user-container">
+    <h1>Текстовая RPG Игра</h1>
+    <div class="game-layout">
+        <div class="hero-info">
+            <h3 id="name">Имя:</h3>
+            <h3 id="health">Здоровье:</h3>
+            <h3 id="strength">Сила:</h3>
+            <h3 id="protection">Защита:</h3>
+            <h3 id="level">Уровень: 1 (Опыт: 0/100)</h3>
+            <h3 id="inventory">Инвентарь:</h3>
+        </div>
+
+        <div class="btn-box-game">
+            <button class="btn-attack" id="btn-attack">Атаковать</button>
+            <button class="btn-defend" id="btn-defend">Защищаться</button>
+            <button class="btn-use" id="btn-use">Использовать предмет</button>
+            <button class="btn-restart" id="btn-restart">Restart</button>
+        </div>
+    </div>
+</section>
+
+<section class="game-container">
+    <div class="local" id="current-location">Текущая локация: Деревня</div>
+    <button  class="btn-action" id="actions-1">Идти в лес</button>
+    <button class="btn-action" id="actions-2">Идти в подземелье</button>
+    <button class="btn-action" id="actions-home">Вернуться в деревню</button>
+
+</section>
+
+<section class="event-log-container" id="event-log">
+    <h2>Журнал событий</h2>
+    <div class="event-log-content">
+        <div class="log-entry">Вы вошли в деревню...</div>
+    </div>
+</section>
+
+<script src="index.js"></script>
+</body>
+</html>
