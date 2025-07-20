@@ -1,0 +1,172 @@
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+.user-container {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto 50px;
+    padding: 20px;
+    border: 2px solid black;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.game-layout {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(108, 99, 255, 0.15);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.hero-info {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding-left: 20px;
+    color: #101010;
+    font-size: 20px;
+    border: 3px solid black;
+    border-radius: 8px;
+}
+
+.btn-box-game {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 250px;
+}
+
+.btn-attack,
+.btn-defend,
+.btn-use,
+.btn-restart {
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-attack {
+    background-color: #d14334;
+    color: white;
+}
+
+.btn-defend {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-use {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-restart {
+    background-color: #fdfdfd;
+    color: #101010;
+
+}
+
+.btn-attack:hover,
+.btn-defend:hover,
+.btn-use:hover,
+.btn-restart:hover
+{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 768px;
+    height: 200px;
+    margin-bottom: 50px;
+    background-color: #e0e0e0;
+    border: 1px solid black;
+    gap: 4px;
+    font-size: 18px;
+    font-weight: 600;
+
+}
+
+.local {
+    font-size: 24px;
+    text-align: center;
+}
+
+.btn-action {
+    margin: 10px 20px 2px 20px;
+    border-radius: 5px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
+.event-log-container {
+    width: 100%;
+    max-width: 768px;
+    margin: 20px auto;
+    background-color: #2a3a2e;
+    border: 1px solid #1a2a1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: #e0e0e0;
+    overflow: hidden;
+}
+
+.event-log-container h2 {
+    padding: 10px 15px;
+    margin: 0;
+    background-color: #1a2a1e;
+    font-size: 20px;
+    border-bottom: 1px solid #3a4a3e;
+}
+
+.event-log-content {
+    height: 200px;
+    padding: 10px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+}
+
+.log-entry {
+    padding: 5px 0;
+    border-bottom: 1px dotted #3a4a3e;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+/* Анимация для новых записей */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
