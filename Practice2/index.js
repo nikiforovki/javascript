@@ -2,7 +2,7 @@ const itemsConfig = {
     'Зелье здоровья': {
         type: 'health',
         value: 20,
-        use: function() {
+        use: function () {
             const oldHealth = player.health;
             player.health = Math.min(player.maxHealth, player.health + this.value);
             return `Восстановлено ${player.health - oldHealth} здоровья`;
@@ -11,14 +11,14 @@ const itemsConfig = {
 };
 
 const enemies = {
-    skeleton: { name: 'Скелет', health: 50, strength: 10, protection: 5, expReward: 20 },
-    goblin: { name: 'Гоблин', health: 30, strength: 15, protection: 3, expReward: 15 }
+    skeleton: {name: 'Скелет', health: 50, strength: 10, protection: 5, expReward: 20},
+    goblin: {name: 'Гоблин', health: 30, strength: 15, protection: 3, expReward: 15}
 };
 
 const gameLocations = [
-    { id: 1, loc: 'Деревня', items: ['Зелье здоровья'], enemies: [] },
-    { id: 2, loc: 'Подземелье', items: ['Зелье здоровья'], enemies: ['skeleton', 'goblin'] },
-    { id: 3, loc: 'Лес', items: ['Зелье здоровья'], enemies: ['goblin'] }
+    {id: 1, loc: 'Деревня', items: ['Зелье здоровья'], enemies: []},
+    {id: 2, loc: 'Подземелье', items: ['Зелье здоровья'], enemies: ['skeleton', 'goblin']},
+    {id: 3, loc: 'Лес', items: ['Зелье здоровья'], enemies: ['goblin']}
 ];
 
 const initialPlayerState = {
@@ -32,14 +32,15 @@ const initialPlayerState = {
     expToNextLevel: 100,
     inventory: [],
     currentLocation: 1,
-    currentEnemy: null
+    currentEnemy: null,
+    isPlayerTurn: true
 };
 
 const player = JSON.parse(JSON.stringify(initialPlayerState));
 
 // Журнал событий
 const eventLog = {
-    addEntry: function(message, type = 'info') {
+    addEntry: function (message, type = 'info') {
         const logElement = document.querySelector('.event-log-content');
         if (!logElement) return;
 
@@ -56,18 +57,27 @@ const eventLog = {
 
 // Боевая система
 const combatSystem = {
-    startCombat: function(enemyType) {
+    startCombat: function (enemyType) {
         player.currentEnemy = {...enemies[enemyType]};
+        player.isPlayerTurn = true;
         this.updateCombatUI(true);
         eventLog.addEntry(`На вас напал ${player.currentEnemy.name}!`, 'danger');
 
         if (Math.random() < 0.25) {
+            player.isPlayerTurn = false;
             setTimeout(() => this.enemyAttack(), 500);
         }
     },
 
-    playerAttack: function() {
-        if (!player.currentEnemy) return;
+    playerAttack: function () {
+        if (!player.currentEnemy || !player.isPlayerTurn) {
+            if (!player.currentEnemy) {
+                eventLog.addEntry("Нет врага для атаки!", "warning");
+            }
+            return;
+        }
+
+        player.isPlayerTurn = false;
 
         const damage = this.calculateDamage(player.strength, player.currentEnemy.protection);
         player.currentEnemy.health -= damage;
@@ -80,7 +90,7 @@ const combatSystem = {
         }
     },
 
-    enemyAttack: function() {
+    enemyAttack: function () {
         if (!player.currentEnemy) return;
 
         const damage = this.calculateDamage(player.currentEnemy.strength, player.protection);
@@ -92,10 +102,13 @@ const combatSystem = {
             player.health = 0;
             this.updatePlayerStats();
             this.gameOver();
+        } else {
+            player.isPlayerTurn = true;
+            this.updateCombatUI(true);
         }
     },
 
-    gameOver: function() {
+    gameOver: function () {
         this.updateCombatUI(false);
         this.disableMovementButtons(true);
         eventLog.addEntry('Вы проиграли! Игра окончена.', 'danger');
@@ -103,25 +116,35 @@ const combatSystem = {
         document.getElementById('btn-restart').style.display = 'inline-block';
     },
 
-    calculateDamage: function(attack, defense) {
+    calculateDamage: function (attack, defense) {
         const baseDamage = Math.max(1, attack - defense);
         return Math.random() < 0.1 ? baseDamage * 2 : baseDamage;
     },
 
-    playerDefend: function() {
-        if (!player.currentEnemy) return;
+    playerDefend: function () {
+        if (!player.currentEnemy || !player.isPlayerTurn) {
+            if (!player.currentEnemy) {
+                eventLog.addEntry("Некого защищаться!", "warning");
+            }
+            return;
+        }
+
+        player.isPlayerTurn = false;
 
         const originalProtection = player.protection;
         player.protection = Math.floor(originalProtection * 1.5);
         eventLog.addEntry(`Вы защищаетесь! Защита увеличена до ${player.protection}`, 'info');
+        this.updatePlayerStats();
 
         setTimeout(() => {
             this.enemyAttack();
             player.protection = originalProtection;
+            this.updatePlayerStats();
         }, 500);
     },
 
-    useItem: function() {
+
+    useItem: function () {
         const potionIndex = player.inventory.indexOf('Зелье здоровья');
         if (potionIndex !== -1) {
             player.inventory.splice(potionIndex, 1);
@@ -133,10 +156,12 @@ const combatSystem = {
         }
     },
 
-    endCombat: function(playerWon) {
+    endCombat: function (playerWon) {
         if (playerWon) {
             const expGained = player.currentEnemy.expReward;
             player.exp += expGained;
+            this.updatePlayerStats();
+
             const expToNext = player.expToNextLevel - player.exp;
             eventLog.addEntry(`Победа! Получено ${expGained} опыта. До следующего уровня: ${expToNext > 0 ? expToNext : 0} опыта`, 'success');
 
@@ -153,40 +178,43 @@ const combatSystem = {
         this.updateCombatUI(false);
     },
 
-    levelUp: function() {
-        player.level++;
-        player.exp -= player.expToNextLevel;
-        player.expToNextLevel = Math.floor(player.expToNextLevel * 1.5);
-        player.maxHealth += 10;
+    levelUp: function () {
+        while (player.exp >= player.expToNextLevel) {
+            player.level++;
+            player.exp -= player.expToNextLevel;
+            player.expToNextLevel = Math.floor(player.expToNextLevel * 1.5);
+            player.maxHealth += 10;
+            player.strength += 2;
+            player.protection += 1;
+        }
         player.health = player.maxHealth;
-        player.strength += 2;
-        player.protection += 1;
-
         this.updatePlayerStats();
         eventLog.addEntry(`Уровень повышен! Теперь вы ${player.level} уровня. Требуется ${player.expToNextLevel} опыта до следующего уровня`, 'success');
     },
 
-    findItemAfterBattle: function() {
+    findItemAfterBattle: function () {
         player.inventory.push('Зелье здоровья');
         this.updatePlayerStats();
         eventLog.addEntry(`Найден предмет: Зелье здоровья!`, 'success');
     },
 
-    updateCombatUI: function(inCombat) {
+    updateCombatUI: function (inCombat) {
         ['btn-attack', 'btn-defend', 'btn-use'].forEach(id => {
             const button = document.getElementById(id);
-            if (button) button.disabled = !inCombat;
+            if (button) {
+                button.disabled = !inCombat || !player.isPlayerTurn;
+            }
         });
     },
 
-    disableMovementButtons: function(disabled) {
+    disableMovementButtons: function (disabled) {
         ['actions-1', 'actions-2', 'actions-home'].forEach(id => {
             const button = document.getElementById(id);
             if (button) button.disabled = disabled;
         });
     },
 
-    updatePlayerStats: function() {
+    updatePlayerStats: function () {
         const translations = {
             health: 'Здоровье',
             strength: 'Сила',
