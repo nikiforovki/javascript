@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление выводом текста</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<form>
+    <div class="input-group">
+        <label for="input">Задержка (мс):</label>
+        <input
+                type="number"
+                class="input"
+                id="input"
+                placeholder="Введите задержку"
+                min="100"
+                value=" "
+        >
+        <div id="error" class="error">Ошибка: задержка должна быть числом не менее 100 мс</div>
+    </div>
+
+    <div class="input-group">
+        <label for="text">Текст сообщения:</label>
+        <textarea
+                class="text"
+                id="text"
+                placeholder="Введите сообщение"
+        ></textarea>
+    </div>
+
+    <button class="btn" id="btn">Начать</button>
+</form>
+
+<script src="index.js"></script>
+</body>
+</html>
