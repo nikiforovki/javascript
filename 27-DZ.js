@@ -4,13 +4,27 @@
 Таймер должен выводить оставшееся время
 каждую секунду и остановиться, когда время истечет;*/
 
+// function startTimer(time) {
+//     const seconds = Math.floor(time / 1000);
+//     console.log(`Осталось: ${seconds} сек.`);
+//     time -= 1000;
+//     if (time >= 0) {
+//         setTimeout(() => {
+//             startTimer(time);
+//         }, 1000);
+//     } else {
+//         console.log("Время вышло!");
+//     }
+// }
+//
+// startTimer(10000);
+
 function startTimer(time) {
-    const seconds = Math.floor(time / 1000);
-    console.log(`Осталось: ${seconds} сек.`);
-    time -= 1000;
-    if (time >= 0) {
+    if (time > 0) {
+        const seconds = Math.floor(time / 1000);
+        console.log(`Осталось: ${seconds} сек.`);
         setTimeout(() => {
-            startTimer(time);
+            startTimer(time - 1000);
         }, 1000);
     } else {
         console.log("Время вышло!");
@@ -22,11 +36,11 @@ startTimer(10000);
 
 // 2. Напиши функцию, которая использует `setInterval`
 // для вывода сообщения "Не забудь выпить воды!" каждые 30 минут;
-
-function waterReminder() {
-    setInterval(() => {
-        console.log("Не забудь выпить воды!");
-    },1000);
-}
-
-waterReminder()
+//
+// function waterReminder() {
+//     setInterval(() => {
+//         console.log("Не забудь выпить воды!");
+//     },1000);
+// }
+//
+// waterReminder()
