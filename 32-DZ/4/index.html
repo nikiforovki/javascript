@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ДЗ 4</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<h1>ДЗ 4</h1>
+<div class="form-section">
+    <h2>Создать пост</h2>
+    <form class="style-form">
+        <input class="style-input" id="user-id" placeholder="id пользователя" type="number">
+        <input class="style-input" id="title" placeholder="Заголовок">
+        <textarea class="txt-form" id="txt" placeholder="Текст"></textarea>
+    </form>
+    <button class="btn">Отправить пост</button>
+</div>
+
+<div class="form-section">
+    <h2>Обновить пользователя</h2>
+    <form class="style-form">
+        <input class="style-input" id="update-user-id" placeholder="id пользователя" type="number">
+        <input class="style-input" id="update-name" placeholder="Имя">
+        <input class="style-input" id="update-email" placeholder="Email" type="email">
+        <input class="style-input" id="update-city" placeholder="Город">
+    </form>
+    <button class="btn update-user-btn">Обновить пользователя</button>
+</div>
+
+<div class="button-section">
+    <button class="btn load-posts-btn">Загрузить посты</button>
+</div>
+
+<h3>Ответ сервера</h3>
+<div class="style-answer"></div>
+
+<h3>Список постов</h3>
+<div class="posts-container"></div>
+
+<h3>Профиль пользователя</h3>
+<div class="user-profile"></div>
+
+<div class="explanation-section">
+    <h3>Разница между PUT и PATCH запросами</h3>
+    <div class="explanation">
+        <p><strong>PUT</strong> - полностью заменяет ресурс новыми данными. Требует отправки полного представления ресурса.</p>
+        <p><strong>PATCH</strong> - вносит частичные изменения в ресурс. Отправляются только измененные поля.</p>
+        <p>Пример:</p>
+        <p class="code">PUT /users/1 {name: "Иван", email: "ivan@example.com"}</p>
+        <p>→ Все поля пользователя будут заменены</p>
+        <p class="code">PATCH /users/1 {email: "new@example.com"}</p>
+        <p>→ Изменится только email, остальные поля останутся прежними</p>
+    </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
